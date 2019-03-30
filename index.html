@@ -1,0 +1,191 @@
+{% extends "material/base.html" %}
+{% block content %}
+<div class="showcase container purple lighten-3">
+    <div class="row" align="center">
+        <div class="col 12 m10 offset-ml center" align="center">
+            <h2 style="text-align: right;">Heart Disease Predictor </h2>
+              <a href="{{url_for('index')}}" class="btn btn-small purple white-text waves-effect waves-dark" >Reset</a>
+        </div>
+
+    </div>
+</div>
+<section class="section section-signup">
+        <div class="container">
+          <div class="row">
+           
+            <div class="col s12 m4">
+              <div class="card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
+                <form action="{{ url_for('analyze')}}" method="POST">
+                 <div class="input-field">
+                   <p class="range-field">
+      
+                        <input type="number" id="age" name="age" min="0" max="100" value="0">
+                    <label for="age">age</label>
+                    
+                  </div>
+
+                  <div class="input-field">
+                   <p class="range-field">
+      <select name="gender">
+      <option value="0">Female</option>
+      <option value="1">Male</option> </select>     
+       <label for="gender">gender</label>                    
+                  </div>
+
+                  <div class="input-field">
+                   <p class="range-field">
+      <select name="chestpain">
+      <option value="1">typical angina</option>
+      <option value="2">atypical angina</option>
+      <option value="3">non-anginal pain</option>
+      <option value="4">asymptomatic</option></select>
+                    <label for="chestpain">chestpain</label>
+                    
+                  </div>
+                  <div class="input-field">
+                   <p class="range-field">
+                        <input type="number" id="bloodpressure" name="bloodpressure" min="1" max="200" value="1">
+                    <label for="bloodpressure">bloodpressure</label>
+                    
+                  </div>
+                  <div class="input-field">
+                   <p class="range-field">
+                        <input type="number" id="cholestrol" name="cholestrol" min="0" max="564" value="0">
+                    <label for="cholestrol">cholestrol</label>
+                    
+                  </div>
+                  <div class="input-field">
+                   <p class="range-field">
+      <select name="fastingbloodsugar">
+      <option value="1">blood sugar >120mg/dl?</option>
+      <option value="0">blood sugar <=120mg/dl?</option></select>
+      <label for="fastingbloodsugar">fastingbloodsugar</label>
+                  </div>
+
+                  <div class="input-field">
+                   <p class="range-field">
+      
+      <select name="restecg">
+      <option value="0">normal</option>
+      <option value="1">having ST-T wave abnormality</option>
+      <option value="2">showing left ventricular hypertrophy</option></select>
+                    <label for="restecg">restecg</label>
+                    
+                  </div>
+
+                  <div class="input-field">
+                   <p class="range-field">
+                        <input type="number" id="maxheartrate" name="maxheartrate" min="0" max="202" value="0">
+                    <label for="maxheartrate">maxheartrate</label>
+                    
+                  </div>
+                  
+                   <div class="input-field">
+                   <p class="range-field">
+      <select name="inducedangina">
+      <option value="1">exercise induced angina</option>
+      <option value="0">not exercise induced angina</option></select>
+      <label for="inducedangina">inducedangina</label>
+                  </div>
+                   <div class="input-field">
+                   <p class="range-field">
+                        <input type="number" id="stdepression" name="stdepression" min="0" max="6.2" value="0" step="0.1">
+                    <label for="stdepression">stdepression</label>
+                  </div>
+
+                  <div class="input-field">
+                   <p class="range-field">
+      <select name="slope">
+      <option value="1">upsloping</option>
+      <option value="2">flat</option>
+      <option value="3">downsloping</option></select>
+                    <label for="slope">slope</label>
+                    
+                  </div>
+                  <div class="input-field">
+                   <p class="range-field">
+                        <input type="number" id="vessels" name="vessels" min="0" max="3" value="0">
+                    <label for="vessels">vessels</label>
+                  </div>
+
+                  <div class="input-field">
+                   <p class="range-field">
+      <select name="thal">
+      <option value="3">normal</option>
+      <option value="6">fixed defect</option>
+      <option value="7">reversible defect</option></select>
+                   <label for="thal">thal</label>
+                    
+                  </div>
+                  
+                  <div class="input-field">
+                    <select id="role" name="model_choice">
+                      <option value="" disabled selected>Select Model</option>
+                      <option value="LogisticRegression">Logistic Regression</option>
+                        <option value="NaiveBayes">NaiveBayes</option>
+                        <option value="SVM">SVM</option>
+                        <option value="decisiontree">decisiontree</option>
+                        <option value="randomforest">randomforest</option>
+                    </select>
+                    <label for="role">Select ML Algorithm</label>
+                  </div>
+                  <input type="submit" value="Predict" class="btn btn-small purple waves-effect waves-light btn-extend" style="color: black">
+                  <input type="reset" value="Clear" class="btn btn-small purple waves-effect waves-light btn-extend" style="color: black">
+                </form>
+
+
+              </div>
+            </div>
+          
+    
+            
+    
+             <div class="col s12 m4 offers">
+                <h5>Prediction</h5>
+                  <div class="collection" role="alert">
+                    <p  class="collection-item active purple">Predicted result {{ result_prediction }} </p>
+                </div>              
+                <div class="card-image waves-effect waves-block waves-light">
+
+                      {% if result_prediction == [1] %}
+                        <h5>will get heart disease</h5>
+                      {% elif result_prediction == [0] %}
+                        <h5>will not get heart disease</h5>
+                      {% else %}
+                      {% endif %}
+                                    
+                </div>
+              
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      {% endblock%}
+
+      {% block scripts %}
+      {{super()}}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+      <!-- <script type="text/javascript">
+           document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('select');
+          var instances = M.FormSelect.init(elems, options);
+        });
+      </script> -->
+      
+      <script>
+          // Or with jQuery
+      
+        $(document).ready(function(){
+          $('select').formSelect();
+        });
+      </script>
+      
+      {% endblock %}
